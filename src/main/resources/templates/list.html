@@ -2,6 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>게시물 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-start; /* 상단에 배치 */
+            align-items: center;
+            flex-direction: column; /* 세로 정렬 */
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>게시물 ID 번호</th>
+            <th>게시물 제목</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.number}"></td>
+            <td><a th:href="@{'/board/detail?number=' + ${member.number}}"><span th:text="${member.title}"></span></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
@@ -18,14 +90,17 @@
         <tr th:each="member : ${members}">
             <td th:text="${member.number}"></td>
             <td><a th:href="@{'/board/detail?number=' + ${member.number}}"><span th:text="${member.title}"></span></a></td>
+            -->
             <!--
             <td th:text="${member.title}"></td>
             <td><a th:href="@{'/detail/' + ${member.number}}" th:text="${member.title}"></a></td>
             <td><a th:href="@{'/board/detail'}" th:text="${member.title}"></a></td>
             -->
+<!--
         </tr>
         </tbody>
     </table>
 </div>
 </body>
 </html>
+-->

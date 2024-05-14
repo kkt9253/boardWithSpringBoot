@@ -56,6 +56,13 @@ public class BoardController {
         return "list";
     }
 
+    @GetMapping("/listDetail")
+    public String readListDetail(Model model) {
+        List<Board> listMembers = boardService.findAll();
+        model.addAttribute("listMembers", listMembers);
+        return "listDetail";
+    }
+
     @GetMapping("/detail")
     public String readDetail(@RequestParam("number") Long number, Model model) {
         Optional<Board> detailBoard = boardService.findById(number);

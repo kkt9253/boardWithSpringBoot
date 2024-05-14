@@ -23,6 +23,4 @@ public interface BoardService {
     BoardResponseDTO changeBoard(Long number, String name, String context) throws Exception;
 
     void deleteBoard(Long number) throws Exception;
-
-
 }

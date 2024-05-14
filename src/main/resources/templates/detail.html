@@ -3,6 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 상세</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 40px 0; /* 위와 아래 여백 추가 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .post {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+        table {
+            width: 100%;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="post">
+    <form action="/board/update" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="number" name="number" th:value="${detailBoard.get().number}" />
+        <table>
+            <tr>
+                <td><label for="title">제목</label></td>
+                <td><input type="text" id="title" name="title" th:value="${detailBoard.get().title}" required /></td>
+            </tr>
+            <tr>
+                <td><label for="content">내용</label></td>
+                <td><textarea id="content" name="context" rows="4" cols="50" required th:text="${detailBoard.get().context}"></textarea></td>
+            </tr>
+            <tr th:if="${detailBoard.get().photoUrl}">
+                <td colspan="2">
+                    <label for="photo">첨부된 사진</label><br>
+                    <img th:src="'/images/' + ${detailBoard.get().photoUrl}" alt="첨부된 사진">
+                </td>
+            </tr>
+        </table>
+        <button type="submit">게시물 수정</button>
+    </form>
+    <form action="/board/delete" method="post">
+        <input type="hidden" name="number" th:value="${detailBoard.get().number}" />
+        <button type="submit">게시물 삭제</button>
+    </form>
+    <form action="/board" method="get">
+        <button type="submit">홈으로 돌아가기</button>
+    </form>
+</div>
+</body>
+</html>
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 상세</title>
 </head>
 <body>
 <form action="/board/update" method="post" enctype="multipart/form-data">
@@ -19,10 +116,6 @@
         <tr th:if="${detailBoard.get().photoUrl}">
             <td><label for="photo">첨부된 사진</label><br></td>
             <td><img th:src="'/images/' + ${detailBoard.get().photoUrl}" alt="Board Image" style="max-width: 300px; height: auto"></td>
-            <!--
-            <td><img th:src="${detailBoard.get().photoUrl}" alt="첨부 사진" style="max-width: 500px; height: auto;"></td>
-            <td><img th:src="'C:\Users\kim47\Desktop\3학년1학기\고급웹프\spring\takstargram\src\main\resources\static\images\\' + ${detailBoard.get().photoUrl}" alt="Board Image"></td>
-        -->
         </tr>
     </table>
     <button type="submit">게시물 수정</button>
@@ -35,3 +128,4 @@
 </form>
 </body>
 </html>
+-->
