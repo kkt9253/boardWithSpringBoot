@@ -3,6 +3,7 @@
 Spring Boot<br/>
 Spring Data JPA<br/>
 MariaDB<br/>
+Lombok<br/>
 Swagger
 
 
