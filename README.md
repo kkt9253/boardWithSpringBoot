@@ -1,5 +1,9 @@
-# 게시판 프로젝트
-사진 첨부 및 CRUD기능을 갖춘 프로젝트
+# 사진 첨부 및 CRUD기능을 갖춘 게시물 프로젝트
+## Stack
+Spring Boot<br/>
+Spring Data JPA<br/>
+MariaDB<br/>
+Swagger
 
 
 ## 계층형 아키텍쳐
