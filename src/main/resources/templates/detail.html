@@ -74,9 +74,13 @@
             </tr>
             <tr th:if="${detailBoard.get().photoUrl}">
                 <td colspan="2">
-                    <label for="photo">첨부된 사진</label><br>
-                    <img th:src="'/images/' + ${detailBoard.get().photoUrl}" alt="첨부된 사진">
+                    <label for="attachedPhoto">첨부된 사진</label><br>
+                    <img id="attachedPhoto" th:src="'/images/' + ${detailBoard.get().photoUrl}" alt="첨부된 사진">
                 </td>
+            </tr>
+            <tr>
+                <td><label for="photo">사진 변경</label></td>
+                <td><input type="file" id="photo" name="photo"></td>
             </tr>
         </table>
         <button type="submit">게시물 수정</button>
@@ -91,41 +95,3 @@
 </div>
 </body>
 </html>
-
-
-
-<!--
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>게시물 상세</title>
-</head>
-<body>
-<form action="/board/update" method="post" enctype="multipart/form-data">
-    <input type="hidden" id="number" name="number" th:value="${detailBoard.get().number}" />
-    <table>
-        <tr>
-            <td><label for="title">제목</label></td>
-            <td><input type="text" id="title" name="title" th:value="${detailBoard.get().title}" required /></td>
-        </tr>
-        <tr>
-            <td><label for="content">내용</label></td>
-            <td><textarea id="content" name="context" rows="4" cols="50" required th:text="${detailBoard.get().context}"></textarea></td>
-        </tr>
-        <tr th:if="${detailBoard.get().photoUrl}">
-            <td><label for="photo">첨부된 사진</label><br></td>
-            <td><img th:src="'/images/' + ${detailBoard.get().photoUrl}" alt="Board Image" style="max-width: 300px; height: auto"></td>
-        </tr>
-    </table>
-    <button type="submit">게시물 수정</button>
-</form>
-<form th:action="@{'/board/delete?number=' + ${detailBoard.get().number}}" method="post" style="margin-top: 5px">
-    <button type="submit">게시물 삭제</button>
-</form>
-<form action="/board" method="get" style="margin-top: 5px">
-    <button type="submit">홈으로 돌아가기</button>
-</form>
-</body>
-</html>
--->

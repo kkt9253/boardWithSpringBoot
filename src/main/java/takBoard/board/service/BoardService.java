@@ -1,7 +1,9 @@
 package takBoard.board.service;
 
+
 import takBoard.board.data.dto.BoardDTO;
 import takBoard.board.data.dto.BoardResponseDTO;
+import takBoard.board.data.dto.ChangeBoardDto;
 import takBoard.board.data.entity.Board;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ public interface BoardService {
 
     String savePhoto(BoardDTO boardDTO) throws IOException;
 
-    BoardResponseDTO changeBoard(Long number, String name, String context) throws Exception;
+    BoardResponseDTO changeBoard(ChangeBoardDto changeBoardDto) throws Exception;
 
     void deleteBoard(Long number) throws Exception;
 }

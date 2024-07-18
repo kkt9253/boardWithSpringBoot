@@ -18,6 +18,4 @@ public interface BoardDAO {
 
     void deleteBoard(Long number) throws Exception;
 
-
-
 }

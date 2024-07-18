@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import takBoard.board.data.dao.BoardDAO;
 import takBoard.board.data.dto.BoardDTO;
 import takBoard.board.data.dto.BoardResponseDTO;
+import takBoard.board.data.dto.ChangeBoardDto;
 import takBoard.board.data.entity.Board;
 import takBoard.board.service.BoardService;
 
@@ -69,6 +70,7 @@ public class BoardServiceImpl implements BoardService {
         // 저장된 엔티티로 DTO 생성
         return new BoardResponseDTO(savedBoard.getNumber(), savedBoard.getTitle(), savedBoard.getContext(), savedBoard.getPhotoUrl());
     }
+
     @Override
     public String savePhoto(BoardDTO boardDTO) throws IOException {
         MultipartFile photo = boardDTO.getPhoto(); // BoardDTO에서 파일 가져오기
@@ -95,10 +97,24 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardResponseDTO changeBoard(Long number, String title, String context) throws Exception {
-        Board changedBoard = boardDAO.updateBoard(number, title, context);
+    public BoardResponseDTO changeBoard(ChangeBoardDto changeBoardDto) throws Exception {
+        Board board = boardDAO.selectBoard(changeBoardDto.getNumber());
+        if (board == null) {
+            throw new Exception("Board not found");
+        }
 
-        return new BoardResponseDTO(changedBoard.getNumber(), changedBoard.getTitle(), changedBoard.getContext(), changedBoard.getPhotoUrl());
+        board.setTitle(changeBoardDto.getTitle());
+        board.setContext(changeBoardDto.getContext());
+
+        if (changeBoardDto.getPhotoUrl() != null && !changeBoardDto.getPhotoUrl().isEmpty()) {
+            String photoUrl = savePhoto(new BoardDTO(changeBoardDto.getTitle(), changeBoardDto.getContext(), changeBoardDto.getPhotoUrl(), null));
+            board.setPhotoUrl(photoUrl);
+        }
+
+        board.setUpdatedTime(LocalDateTime.now());
+
+        Board updatedBoard = boardDAO.updateBoard(changeBoardDto.getNumber(), board.getTitle(), board.getContext());
+        return new BoardResponseDTO(updatedBoard.getNumber(), updatedBoard.getTitle(), updatedBoard.getContext(), updatedBoard.getPhotoUrl());
     }
 
     @Override

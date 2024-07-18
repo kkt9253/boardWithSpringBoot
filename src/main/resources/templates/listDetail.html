@@ -73,12 +73,12 @@
             </tr>
             <tr th:if="${listMember.photoUrl}">
                 <td colspan="2">
-                    <label for="photo">첨부된 사진</label><br>
-                    <img th:src="'/images/' + ${listMember.photoUrl}" alt="첨부된 사진">
+                    <label for="attachedPhoto">첨부된 사진</label><br>
+                    <img id="attachedPhoto" th:src="'/images/' + ${listMember.photoUrl}" alt="첨부된 사진">
                 </td>
             </tr>
         </table>
-        <form action="/board/update" method="get">
+        <form action="/board/update" method="post">
             <input type="hidden" name="number" th:value="${listMember.number}" />
             <button type="submit">게시물 수정</button>
         </form>

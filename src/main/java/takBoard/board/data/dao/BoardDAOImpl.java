@@ -33,21 +33,18 @@ public class BoardDAOImpl implements BoardDAO{
 
     @Override
     public Board insertBoard(Board board) {
-        Board savedBoard = boardRepository.save(board);
-        return savedBoard;
+        return boardRepository.save(board);
     }
 
     @Override
     public Board selectBoard(Long number) {
-        Board selectedBoard = boardRepository.getById(number);
-        return selectedBoard;
+        return boardRepository.findById(number).orElse(null);
     }
 
     @Override
     public Board updateBoard(Long number, String title, String context) throws Exception {
         Optional<Board> selectedBoard = boardRepository.findById(number);
 
-        Board updatedBoard;
         if (selectedBoard.isPresent()) {
             Board board = selectedBoard.get();
             // selectedBoard.get() -> selectedBoard에 값이 있을 경우 객체 반환하고, 없을 경우 NoSuchElementException 반환
@@ -55,13 +52,10 @@ public class BoardDAOImpl implements BoardDAO{
             board.setTitle(title);
             board.setContext(context);
             board.setUpdatedTime(LocalDateTime.now());
-
-            updatedBoard = boardRepository.save(board);
+            return boardRepository.save(board);
         } else {
-            throw new Exception();
+            throw new Exception("Board not found");
         }
-
-        return updatedBoard;
     }
 
     @Override
@@ -69,11 +63,9 @@ public class BoardDAOImpl implements BoardDAO{
         Optional<Board> selectedBoard = boardRepository.findById(number);
 
         if (selectedBoard.isPresent()) {
-            // Board board = selectedBoard.get();
-
             boardRepository.deleteById(number);
         } else {
-            throw new Exception();
+            throw new Exception("Board not found");
         }
     }
 }
